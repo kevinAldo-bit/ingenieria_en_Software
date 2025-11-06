@@ -1,0 +1,28 @@
+@startuml Modulo_Acceso
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Socio/Usuario" as User
+actor "Entrenador" as Trainer
+actor "Administrador" as Admin
+
+rectangle "1. Módulo de Acceso y Perfil" {
+    usecase UC_1_Registro as "Registrarse en el Sistema"
+    usecase UC_2_Login as "Iniciar Sesión"
+    usecase UC_3_ModificarPerfil as "Modificar Datos de Perfil"
+    usecase UC_4_Soporte as "Enviar Duda/Sugerencia (Soporte)"
+}
+
+User --> UC_1_Registro
+(UC_1_Registro) .> (UC_2_Login) : <<include>>
+
+User -- UC_2_Login
+Trainer -- UC_2_Login
+Admin -- UC_2_Login
+
+User --> UC_3_ModificarPerfil
+Trainer --> UC_3_ModificarPerfil
+Admin --> UC_3_ModificarPerfil
+
+User --> UC_4_Soporte
+@enduml
