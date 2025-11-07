@@ -1,0 +1,27 @@
+@startuml Secuencia_Login
+
+actor Usuario
+participant Interfaz <<View>>
+participant ControladorAutenticacion <<Control>>
+database BaseDeDatos <<Storage>>
+
+Usuario -> Interfaz: ingresa(correo, contraseña)
+activate Interfaz
+Interfaz -> ControladorAutenticacion: validarCredenciales(correo, contraseña)
+activate ControladorAutenticacion
+    ControladorAutenticacion -> BaseDeDatos: buscarUsuario(correo)
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorAutenticacion: retorna(datosUsuario)
+    deactivate BaseDeDatos
+
+    alt Credenciales Válidas
+        ControladorAutenticacion -> Interfaz: accesoExitoso(tipoUsuario)
+        Interfaz -> Usuario: mostrar(DashboardPrincipal)
+    else Credenciales Inválidas
+        ControladorAutenticacion -> Interfaz: accesoFallido()
+        Interfaz -> Usuario: mostrar(MensajeError)
+    end
+deactivate ControladorAutenticacion
+deactivate Interfaz
+
+@enduml
