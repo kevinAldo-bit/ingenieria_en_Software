@@ -1,0 +1,18 @@
+@startuml Colaboracion_CrearRutina_V3
+hide methods
+hide members
+
+object "Entrenador" as E
+object "Interfaz Rutinas" as IR
+object "Gestor Rutinas" as GR
+object "Base de Datos" as BD <<Database>>
+
+E --> IR : 1: ingresa(detalles)
+IR --> GR : 2: guardar(rutina)
+GR --> GR : 3: validar(datos)
+GR --> BD : 4: insertar(rutina)
+BD --> GR : 5: confirmacion()
+GR --> IR : 6: mostrar(exito)
+IR --> E : 7: confirmacion()
+
+@enduml
