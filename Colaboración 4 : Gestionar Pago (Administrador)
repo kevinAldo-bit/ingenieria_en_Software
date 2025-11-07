@@ -1,0 +1,19 @@
+@startuml Colaboracion_GestionarPago_V3
+hide methods
+hide members
+
+object "Administrador" as A
+object "Interfaz Finanzas" as IF
+object "Gestor Pagos" as GP
+object "Base de Datos" as BD <<Database>>
+
+A --> IF : 1: selecciona(gestion)
+IF --> GP : 2: verificar(estado)
+GP --> BD : 3: consultar(membresia)
+BD --> GP : 4: retorna(datos)
+GP --> IF : 5: mostrar(estado)
+A --> IF : 6: registra(nuevo pago)
+IF --> GP : 7: actualizar(pago)
+GP --> BD : 8: actualizar(BD)
+
+@enduml
