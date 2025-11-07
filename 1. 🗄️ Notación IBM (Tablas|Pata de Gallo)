@@ -1,0 +1,74 @@
+@startuml DER_IBM_FitPowerApp
+hide circle
+skinparam linetype ortho
+
+' ---------------------------
+' Entidades (Tablas)
+' ---------------------------
+
+entity USUARIOS {
+  *id_usuario : PK
+  --
+  tipo_usuario
+  nombre
+  email
+  password_hash
+  fecha_registro
+}
+
+entity MEMBRESIAS {
+  *id_membresia : PK
+  --
+  id_usuario : FK
+  fecha_inicio
+  fecha_vencimiento
+  estado (Activa, Vencida)
+  costo
+}
+
+entity RUTINAS {
+  *id_rutina : PK
+  --
+  id_creador : FK (USUARIOS)
+  nombre
+  objetivo
+  fecha_creacion
+}
+
+entity PROGRESO {
+  *id_progreso : PK
+  --
+  id_usuario : FK
+  fecha_medicion
+  peso
+  grasa_corporal
+  medida_brazo
+}
+
+entity ASIGNACION_RUTINAS {
+  *id_asignacion : PK
+  --
+  id_usuario : FK
+  id_rutina : FK
+  fecha_asignacion
+  estado (Actual, Histórico)
+}
+
+' ---------------------------
+' Relaciones (Cardinalidad)
+' ---------------------------
+
+' 1:1 USUARIOS <-> MEMBRESIAS
+USUARIOS ||..|{ MEMBRESIAS : tiene
+
+' 1:M USUARIOS (Creador) -> RUTINAS
+USUARIOS ||--o{ RUTINAS : crea
+
+' M:N USUARIOS <-> RUTINAS (Resuelta por ASIGNACION_RUTINAS)
+USUARIOS ||--o{ ASIGNACION_RUTINAS : asignado_a
+RUTINAS ||--o{ ASIGNACION_RUTINAS : contiene
+
+' 1:M USUARIOS -> PROGRESO
+USUARIOS ||--o{ PROGRESO : registra
+
+@enduml
