@@ -1,0 +1,23 @@
+@startuml Secuencia_ConsultarProgreso
+
+actor Usuario
+participant InterfazProgreso <<View>>
+participant GestorProgreso <<Control>>
+database BaseDeDatos <<Storage>>
+
+Usuario -> InterfazProgreso: solicita(Ver Progreso)
+activate InterfazProgreso
+InterfazProgreso -> GestorProgreso: obtenerHistorial(idUsuario)
+activate GestorProgreso
+    GestorProgreso -> BaseDeDatos: consultar(datosMedidas, fechas)
+    activate BaseDeDatos
+    BaseDeDatos --> GestorProgreso: retorna(listaDeRegistros)
+    deactivate BaseDeDatos
+
+    GestorProgreso -> InterfazProgreso: enviar(datosParaGrafica)
+deactivate GestorProgreso
+InterfazProgreso -> InterfazProgreso: renderizar(Gráfica)
+InterfazProgreso -> Usuario: mostrar(GráficaDeProgreso)
+deactivate InterfazProgreso
+
+@enduml
