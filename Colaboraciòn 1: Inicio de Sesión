@@ -1,0 +1,21 @@
+@startuml Colaboracion_Login_Corregido
+
+skinparam monochrome true
+hide circle
+
+' 1. Definición de los Nodos (Objetos / Actores)
+class Usuario <<Actor>>
+class InterfazLogin <<View>>
+class ControladorAutenticacion <<Control>>
+class BaseDeDatos <<Storage>>
+
+' 2. Definición de las Conexiones y Mensajes
+' La sintaxis " : mensaje" simula el mensaje/secuencia
+Usuario "1: ingresa(credenciales)" -right-> InterfazLogin
+InterfazLogin "2: validar(credenciales)" -down-> ControladorAutenticacion
+ControladorAutenticacion "3: buscar(usuario)" -right-> BaseDeDatos
+BaseDeDatos "4: retorna(datos)" -left-> ControladorAutenticacion
+ControladorAutenticacion "5: resultado()" -up-> InterfazLogin
+InterfazLogin "6: mostrar(dashboard)" -left-> Usuario
+
+@enduml
