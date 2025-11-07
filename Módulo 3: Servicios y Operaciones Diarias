@@ -1,0 +1,22 @@
+@startuml Modulo_Servicios
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Socio/Usuario" as User
+actor "Administrador" as Admin
+actor "Sistema de Notificaciones" as System <<System>>
+
+rectangle "3. Módulo de Servicios y Notificaciones" {
+    usecase UC_1_Reservar as "Reservar Clases/Citas"
+    usecase UC_2_Asistencia as "Registrar Asistencia (QR/Manual)"
+    usecase UC_3_Notif as "Enviar Notificaciones (Promos/Clases)"
+}
+
+User --> UC_1_Reservar
+User --> UC_2_Asistencia
+
+Admin --> UC_3_Notif
+System .> UC_3_Notif : <<uses>>
+
+(UC_3_Notif) -- User
+@enduml
