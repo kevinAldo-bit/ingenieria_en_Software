@@ -1,0 +1,20 @@
+@startuml Modulo_Rutinas
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Socio/Usuario" as User
+actor "Entrenador" as Trainer
+
+rectangle "2. Módulo de Rutinas y Progreso" {
+    usecase UC_1_VerRutina as "Visualizar Rutina Asignada"
+    usecase UC_2_RegProgreso as "Consultar Progreso Físico"
+    usecase UC_3_CrearRutina as "Crear Rutina Personalizada"
+    usecase UC_4_AsignarRutina as "Asignar Rutina a Usuario"
+}
+
+User --> UC_1_VerRutina
+User --> UC_2_RegProgreso
+Trainer --> UC_3_CrearRutina
+Trainer --> UC_4_AsignarRutina
+UC_4_AsignarRutina .> UC_1_VerRutina : <<extend>>
+@enduml
