@@ -1,0 +1,18 @@
+@startuml Colaboracion_ConsultarProgreso_V3
+hide methods
+hide members
+
+object "Usuario" as U
+object "Interfaz Progreso" as IP
+object "Gestor Progreso" as GP
+object "Base de Datos" as BD <<Database>>
+
+U --> IP : 1: solicita(progreso)
+IP --> GP : 2: obtener(historial)
+GP --> BD : 3: consultar(medidas)
+BD --> GP : 4: retorna(registros)
+GP --> IP : 5: enviar(datos)
+IP --> IP : 6: renderizar(grafica)
+IP --> U : 7: mostrar(grafica)
+
+@enduml
