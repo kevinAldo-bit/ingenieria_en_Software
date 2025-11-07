@@ -1,0 +1,25 @@
+@startuml Secuencia_CrearRutina
+
+actor Entrenador
+participant InterfazRutina <<View>>
+participant GestorRutinas <<Control>>
+database BaseDeDatos <<Storage>>
+
+Entrenador -> InterfazRutina: selecciona(Crear Rutina)
+activate InterfazRutina
+InterfazRutina -> Entrenador: solicitar(detallesRutina)
+Entrenador -> InterfazRutina: ingresa(nombre, ejercicios, series, repeticiones)
+
+InterfazRutina -> GestorRutinas: guardarRutina(datosRutina, idEntrenador)
+activate GestorRutinas
+    GestorRutinas -> GestorRutinas: validar(datos)
+    GestorRutinas -> BaseDeDatos: insertar(nuevaRutina)
+    activate BaseDeDatos
+    BaseDeDatos --> GestorRutinas: confirmacion(idRutina)
+    deactivate BaseDeDatos
+
+    GestorRutinas -> InterfazRutina: mostrar(ConfirmacionExitosa)
+deactivate GestorRutinas
+deactivate InterfazRutina
+
+@enduml
