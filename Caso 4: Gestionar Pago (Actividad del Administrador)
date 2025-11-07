@@ -1,0 +1,29 @@
+@startuml Secuencia_GestionarPago
+
+actor Administrador
+participant InterfazFinanzas <<View>>
+participant GestorPagos <<Control>>
+database BaseDeDatos <<Storage>>
+
+Administrador -> InterfazFinanzas: selecciona(Gestionar Pagos)
+activate InterfazFinanzas
+InterfazFinanzas -> Administrador: solicitar(idSocio)
+Administrador -> InterfazFinanzas: ingresa(ID del Socio)
+
+InterfazFinanzas -> GestorPagos: verificarEstado(idSocio)
+activate GestorPagos
+    GestorPagos -> BaseDeDatos: consultar(estadoMembresia)
+    activate BaseDeDatos
+    BaseDeDatos --> GestorPagos: retorna(estado, fechaVencimiento)
+    deactivate BaseDeDatos
+
+    GestorPagos -> InterfazFinanzas: mostrar(DatosPagoSocio)
+deactivate GestorPagos
+Administrador -> InterfazFinanzas: selecciona(Registrar Nuevo Pago)
+InterfazFinanzas -> GestorPagos: actualizarMembresia(idSocio, nuevaFecha)
+activate GestorPagos
+GestorPagos -> BaseDeDatos: actualizar(registroMembresia)
+deactivate GestorPagos
+deactivate InterfazFinanzas
+
+@enduml
