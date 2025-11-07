@@ -1,0 +1,16 @@
+@startuml Modulo_Admin
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Administrador" as Admin
+
+rectangle "4. Módulo de Administración y Finanzas" {
+    usecase UC_1_GestionarPagos as "Gestionar Pagos de Membresías"
+    usecase UC_2_Reportes as "Generar Reportes de Ingresos"
+    usecase UC_3_GestionarUsuarios as "Administrar Cuentas de Socios/Entrenadores"
+}
+
+Admin --> UC_1_GestionarPagos
+Admin --> UC_2_Reportes
+Admin --> UC_3_GestionarUsuarios
+@enduml
