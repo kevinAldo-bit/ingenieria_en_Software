@@ -1,0 +1,28 @@
+@startuml DER_Chen_FitPowerApp_Final
+
+' ---------------------------
+' Entidades (Rectángulos)
+' ---------------------------
+entity USUARIOS
+entity MEMBRESIAS
+entity RUTINAS
+entity PROGRESO
+
+' ---------------------------
+' Relaciones (Diamantes)
+' ---------------------------
+USUARIOS -- (TIENE)
+(TIENE) -- MEMBRESIAS
+
+USUARIOS -- (CREA)
+(CREA) -- RUTINAS
+
+USUARIOS -- (REGISTRA)
+(REGISTRA) -- PROGRESO
+
+USUARIOS -- (SE_ASIGNA_A)
+(SE_ASIGNA_A) -- RUTINAS
+
+' Los atributos conceptuales se definen fuera del código o en un diagrama separado.
+
+@enduml
