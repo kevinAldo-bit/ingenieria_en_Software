@@ -1,0 +1,34 @@
+@startuml Estados_Socio_Central_Corregido
+hide empty description
+
+title Diagrama de Estados: Ciclo de Vida del Socio y Membresía (FitPower App)
+
+' Estado Inicial
+[*] --> No_Registrado : {Registro Exitoso}
+
+state No_Registrado {
+  No_Registrado --> Pendiente_Pago : {Iniciar Sesión, Socio Nuevo}
+}
+
+state Pendiente_Pago {
+  Pendiente_Pago --> ACTIVO : {Pago Confirmado}
+  Pendiente_Pago --> No_Registrado : {Eliminación de Cuenta}
+}
+
+state ACTIVO {
+  ACTIVO --> INACTIVO : {Membresía Expira}
+  ACTIVO --> Suspendido : {Fallo de Pago Recurrente}
+  ACTIVO --> [*] : {Cierre de Sesión Voluntario}  <-- ¡CORRECCIÓN AQUÍ!
+}
+
+state INACTIVO {
+  INACTIVO --> ACTIVO : {Renovar Membresía}
+  INACTIVO --> [*] : {Eliminar Cuenta}
+}
+
+state Suspendido {
+  Suspendido --> ACTIVO : {Pago Resuelto}
+  Suspendido --> INACTIVO : {Fin Período de Suspensión}
+}
+
+@enduml
